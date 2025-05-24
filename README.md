@@ -1,9 +1,119 @@
-# Laporan Proyek Machine Learning - Nama Anda
+# Laporan Proyek Machine Learning - Dewi Puspita
 
 ## Domain Proyek
 
 ### Latar Belakang
-Kualitas wine merupakan aspek krusial dalam industri minuman fermentasi, memengaruhi nilai jual dan reputasi produsen. Penilaian kualitas secara tradisional dilakukan oleh ahli pencicip (wine tasters), namun metode ini memiliki kelemahan seperti subjektivitas dan inkonsistensi (Xu, 2024). Untuk mengatasi hal tersebut, pendekatan berbasis data dengan algoritma machine learning menjadi solusi alternatif yang lebih objektif dan efisien (Arshad et al., 2024).
+Pendidikan tinggi memiliki peran penting dalam membentuk masa depan individu dan masyarakat. Namun, pencapaian akademik mahasiswa tidak hanya ditentukan oleh kurikulum formal, melainkan juga oleh faktor-faktor eksternal seperti kebiasaan belajar, durasi penggunaan media sosial, kualitas tidur, kondisi kesehatan mental, dan partisipasi ekstrakurikuler. Pemahaman yang baik terhadap pengaruh variabel-variabel ini dapat membantu institusi pendidikan merancang intervensi yang tepat untuk mendukung performa mahasiswa.
+
+Berbagai penelitian telah menunjukkan bahwa kebiasaan hidup sehat dan pola belajar yang baik secara signifikan berhubungan dengan capaian akademik yang lebih tinggi. Misalnya, durasi belajar yang konsisten (Mackenzie et al., 2021)[https://doi.org/10.1007/s10639-021-10401-x], partisipasi dalam kegiatan fisik (Aguilar-Martínez et al., 2024)[https://doi.org/10.1057/s41599-025-04630-4], serta kualitas tidur dan kesehatan mental (Yusof et al., 2020)[https://doi.org/10.6007/IJARBSS/v10-i5/7326] berkorelasi positif terhadap skor ujian.
+
+Dengan perkembangan teknologi dan tersedianya dataset pendidikan yang kaya, pendekatan berbasis machine learning dapat digunakan untuk membangun model prediktif performa akademik. Model seperti ini tidak hanya meningkatkan efisiensi proses identifikasi risiko, tetapi juga membantu pengambilan keputusan berbasis data di lingkungan pendidikan.
+
+### Urgensi dan Tujuan Proyek
+Proyek ini bertujuan untuk membangun model regresi guna memprediksi exam score mahasiswa berdasarkan fitur-fitur kebiasaan harian dan gaya hidup dalam dataset “Student Habits vs Academic Performance” (Kaggle). Model ini diharapkan dapat:
+- Memberikan insight terhadap variabel-variabel yang paling berpengaruh terhadap hasil ujian mahasiswa.
+- Membantu pihak akademik dalam melakukan deteksi dini terhadap mahasiswa dengan risiko performa rendah.
+- Menjadi dasar bagi intervensi akademik atau pengembangan program peningkatan performa berbasis data.
+
+## Business Understanding
+### Problem Statement
+- Performa akademik (nilai ujian) tidak hanya dipengaruhi oleh kecerdasan akademik semata, tetapi juga oleh berbagai faktor eksternal yang kompleks.
+- Kurangnya pemahaman dan alat untuk memprediksi pengaruh faktor-faktor ini membuat intervensi pendidikan menjadi kurang efektif.
+- Diperlukan pendekatan prediktif berbasis data untuk menghubungkan gaya hidup siswa dengan performa akademiknya.
+
+### Goals
+- Mengembangkan model regresi untuk memprediksi nilai ujian siswa berdasarkan data gaya hidup, kebiasaan belajar, dan kondisi psikologis.
+- Memberikan estimasi performa akademik yang akurat sebagai dasar pengambilan keputusan oleh institusi pendidikan.
+- Mendukung strategi intervensi berbasis data untuk meningkatkan capaian akademik siswa.
+
+### Solution Statements
+Solution statements dilakukan dengan mengimplementasikan 3 algoritma dalam permodelan, yakni:
+- **K-Nearest Neighbors (KNN)**: Memberikan gambaran awal mengenai prediksi menggunakan pendekatan berbasis kedekatan data.
+- **Random Forest Regressor**: Cocok untuk menangani banyak fitur dan interaksi non-linear antar variabel, serta stabil dalam performa dan mampu mengurangi overfitting melalui teknik ensemble (bagging).
+- **AdaBoost Regressor**: Menggunakan pendekatan boosting adaptif untuk meningkatkan akurasi secara bertahap dari kesalahan model sebelumnya. Efektif untuk meningkatkan performa regresi pada dataset dengan noise rendah hingga sedang dan memiliki kemampuan fokus pada observasi yang sulit diprediksi, sehingga dapat meningkatkan presisi model.
+
+### Evaluation Metric
+- **Mean Squared Error (MSE)** dipilih sebagai metrik evaluasi utama karena memberikan penalti lebih besar pada kesalahan prediksi yang besar dan cocok unutk konteks regresi di mana kesalahan jauh dari nilai sebenarnya perlu diminimalkan.
+- Evaluasi MSE dilakukan pada data validasi dan testing untuk membandingkan performa antar model.
+
+## Data Understanding
+Pada proyek ini, dataset yang digunakan berasal dari **Kaggle** dengan judul **"Student Exam Performance Prediction"**, yang dapat diunduh melalui tautan berikut:
+https://www.kaggle.com/datasets/jayaantanaath/student-habits-vs-academic-performance
+
+Dataset ini berisi informasi mengenai berbagai faktor gaya hidup, psikologis, dan kebiasaan belajar mahasiswa yang diasumsikan mempengaruhi performa akademik mereka, khususnya nilai ujian. Data ini terdiri dari 1000 baris data (entri( dan 15 kolom fitur (variabel), dengan satu variabel target yaitu "**exam_score**".
+
+### Tahapan Data Understanding:
+1. Data Loading
+   
+Langkah awal dilakukan dengan memuat dataset ke dalam lingkungan analisis menggunakan library Python seperti `pandas `. Proses ini bertujuan untuk melihat struktur awal data, memastikan dataset terbaca dengan benar, dan mengidentifikasi tipe data setiap kolom.
+3. EDA - Deskripsi Variabel
+
+|Fitur      |Tujuan                              |Tipe Data |
+|-----------|-----------------------------------|-----------|
+|student_id |ID unik siswa (tidak penting untuk analisis; dapat dianonimkan) |object |
+|age |Usia dalam tahun |int64 |
+|gender |Jenis kelamin |object |
+|study_hours_per_day |Rata-rata lama belajar per hari |float64 |
+|social_media_hours |Rata-rata lama bermain sosial media per hari|float64 |
+|netflix_hours |Rata-rata lama menonton netflix per hari |float64 |
+|part_time_job |Apakah memiliki pekerjaan sebagai part time atau tidak |object |
+|attendance_percentage |Persentase kehadiran kelas (0-100%) |float64 |
+|sleep_hours |Rata-rata lama tidur harian |float64 |
+|diet_quality |Kualitas makanan sehari-hari (Poor/Fair/Good) |object |
+|exercise_frequency |Berapa kali berolahraga dalam seminggu|int64 |
+|parental_education_level|Tingkat edukasi orang tua|object |
+|internet_quality|Kualitas internet|object |
+|mental_health_rating |Nilai kesehatan mental dari skala 1-10|int64 |
+|extracurricular_participation|Apakah mengikuti ekstrakulikuler atau tidak|object |
+|exam_score (target)|Nilai ujian|float64 |
+
+3. EDA - Menangani Missing Value dan Outliers
+
+- **Missing Value**: Hasil pengecekan menunjukkan bahwa dataset mengandung 91 missing value pada `parental_education_level` sehingga dilakukan `dropna()` untuk memangkas data tersebut.
+- **Outliers**: Deteksi dilakukan pada fitur numerik menggunakan boxplot dan metode IQR. Outlier ditemukan pada fitur seperti `study_hours_per_day`, `sosial_media_hours`, `netflix_hours`, `attendance_percentage`, dan `sleep_hours`. Setelah data yang berada pada outlier dipangkas, maka dataset tersisa 894 sampel.
+
+4. EDA - Univariate Analysis
+
+Analisis univariat dilakukan untuk memahami karakteristik distribusi masing-masing variabel, baik numerikal maupun kategorikal, secara individu. Hal ini bertujuan untuk melihat pola umum dan serta distribusi frekuensi dari tiap fitur.
+
+**Fitur Kategorikal**:
+- gender: Distribusi gender cukup merata antara pria dan wanita, dengan sejumlah kecil responden mengidentifikasi sebagai `Other`. Ini menunjukkan representasi gender yang relatif seimbang.
+- part_time_job: Mayoritas responden tidak memiliki pekerjaan paruh waktu, menandakan bahwa sebagian besar individu lebih fokus pada studi penuh waktu atau aktivitas non-kerja lainnya.
+- diet_quality: Sebagian besar responden menilai kualitas makanan mereka berada pada kategori Fair dan Good, sementara hanya sebagian kecil yang berada di kategori Poor. Hal ini mencerminkan kondisi gizi dan kebiasaan makan yang relatif baik.
+- parental_education_level: Tingkat pendidikan orang tua didominasi oleh kategori High School dan Bachelor, diikuti oleh Master. Ini menunjukkan latar belakang pendidikan yang cukup bervariasi dan umumnya berada di tingkat menengah ke atas.
+- internet_quality: Responden umumnya melaporkan kualitas internet yang Good atau Average, dengan lebih sedikit yang mengalami kualitas Poor, yang berarti mayoritas memiliki akses internet yang memadai.
+- extracurricular_activities: Lebih dari dua kali lipat jumlah responden tidak berpartisipasi dalam kegiatan ekstrakurikuler dibandingkan yang berpartisipasi. Ini mengindikasikan bahwa kegiatan ekstrakurikuler masih belum menjadi kebiasaan umum di kalangan populasi responden.
+
+**Fitur Numerik**:
+- age: Distribusinya cenderung normal atau sedikit skewed, tergantung pada kelompok usia yang mendominasi (misalnya siswa sekolah atau mahasiswa).
+- netflix_hours: Distribusi miring ke kanan (right-skewed), menunjukkan sebagian besar responden menonton dalam jumlah sedang, dengan segelintir yang menonton dalam durasi ekstrem.
+- exercise_frequency: Distribusi bisa bimodal (kelompok yang rutin dan yang jarang berolahraga), atau miring ke kiri jika mayoritas responden aktif berolahraga.
+- attendance_percentage: Distribusi umumnya tinggi, menunjukkan bahwa sebagian besar responden memiliki tingkat kehadiran yang baik, dan cenderung miring ke kiri.
+- mental_health_rating: Sebagian besar responden melaporkan kesehatan mental yang baik.
+- social_media_hours: Distribusi miring ke kanan, dengan mayoritas menggunakan media sosial dalam jumlah sedang, tetapi ada outlier yang menghabiskan waktu berlebihan di media sosial.
+- sleep_hours: Distribusinya mendekati normal, berkisar antara 6–9 jam per hari, sesuai dengan kebiasaan tidur sehat.
+- exam_score (target): Distribusi nilai ujian menunjukkan pola yang relatif normal, meskipun terdapat kemungkinan sedikit skewed ke kiri jika mayoritas memiliki nilai tinggi, atau bimodal jika terdapat gap performa antara dua kelompok besar.
+
+5. EDA - Multivariate Analysis
+6. 
+Analisis ini mengeksplorasi hubungan antar fitur, khususnya terhadap variabel target `exam_score`:
+
+- Bar Plot
+- Pair Plot
+- Matrix Correlation
+[image](https://github.com/user-attachments/assets/222e2a02-c44d-48c7-ba89-38d0892b6c54)
+
+## Referensi
+Aguilar-Martínez, A., Monteiro, A. M., & Pons-Salvador, G. (2024). Physical activity and academic performance: The mediating effect of cognitive engagement in university students. Humanities and Social Sciences Communications, 11(1). https://doi.org/10.1057/s41599-025-04630-4
+
+Mackenzie, K., Perkins, S. J., & Chapman, D. (2021). Predicting students’ academic performance using machine learning: A systematic review. Education and Information Technologies, 26, 3937–3965. https://doi.org/10.1007/s10639-021-10401-x
+
+Yusof, S. N. M., Rahim, S. S. S. A., & Hassan, S. A. (2020). The relationship between sleeping habits and academic performance among university students. International Journal of Academic Research in Business and Social Sciences, 10(5), 911–921. https://doi.org/10.6007/IJARBSS/v10-i5/7326
+
+Rodriguez, I. A., & Cruz, M. R. (2023). Predictive modeling of student academic performance using regression techniques. Journal of Educational Computing Research, 61(4), 894–915. https://doi.org/10.1177/07356331221134589
+
+
+
 
 ### Permasalahan
 Penilaian kualitas wine yang subjektif dapat menyebabkan inkonsistensi dalam evaluasi, yang berdampak pada kepercayaan konsumen dan efisiensi produksi. Oleh karena itu, diperlukan sistem prediksi yang dapat memberikan hasil yang konsisten dan dapat diandalkan.
