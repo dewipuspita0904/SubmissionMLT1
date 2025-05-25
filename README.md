@@ -3,9 +3,10 @@
 ## Domain Proyek
 
 ### Latar Belakang
+![exam_score](https://agentrealestateschools.com/wp-content/uploads/2021/11/passing-score-for-real-estate-exam.jpg)
 Pendidikan tinggi memiliki peran penting dalam membentuk masa depan individu dan masyarakat. Namun, pencapaian akademik mahasiswa tidak hanya ditentukan oleh kurikulum formal, melainkan juga oleh faktor-faktor eksternal seperti kebiasaan belajar, durasi penggunaan media sosial, kualitas tidur, kondisi kesehatan mental, dan partisipasi ekstrakurikuler. Pemahaman yang baik terhadap pengaruh variabel-variabel ini dapat membantu institusi pendidikan merancang intervensi yang tepat untuk mendukung performa mahasiswa.
 
-Berbagai penelitian telah menunjukkan bahwa kebiasaan hidup sehat dan pola belajar yang baik secara signifikan berhubungan dengan capaian akademik yang lebih tinggi. Misalnya, durasi belajar yang konsisten (Mackenzie et al., 2021)[https://doi.org/10.1007/s10639-021-10401-x], partisipasi dalam kegiatan fisik (Aguilar-Martínez et al., 2024)[https://doi.org/10.1057/s41599-025-04630-4], serta kualitas tidur dan kesehatan mental (Yusof et al., 2020)[https://doi.org/10.6007/IJARBSS/v10-i5/7326] berkorelasi positif terhadap skor ujian.
+Berbagai penelitian telah menunjukkan bahwa kebiasaan hidup sehat dan pola belajar yang baik secara signifikan berhubungan dengan capaian akademik yang lebih tinggi. Misalnya, durasi belajar yang konsisten, partisipasi dalam kegiatan fisik, serta kualitas tidur dan kesehatan mental berkorelasi positif terhadap skor ujian [(Kayani, S. et al., 2024)](https://doi.org/10.3390/su10103633).
 
 Dengan perkembangan teknologi dan tersedianya dataset pendidikan yang kaya, pendekatan berbasis machine learning dapat digunakan untuk membangun model prediktif performa akademik. Model seperti ini tidak hanya meningkatkan efisiensi proses identifikasi risiko, tetapi juga membantu pengambilan keputusan berbasis data di lingkungan pendidikan.
 
@@ -40,13 +41,15 @@ Solution statements dilakukan dengan mengimplementasikan 3 algoritma dalam permo
 Pada proyek ini, dataset yang digunakan berasal dari **Kaggle** dengan judul **"Student Exam Performance Prediction"**, yang dapat diunduh melalui tautan berikut:
 https://www.kaggle.com/datasets/jayaantanaath/student-habits-vs-academic-performance
 
-Dataset ini berisi informasi mengenai berbagai faktor gaya hidup, psikologis, dan kebiasaan belajar mahasiswa yang diasumsikan mempengaruhi performa akademik mereka, khususnya nilai ujian. Data ini terdiri dari 1000 baris data (entri( dan 15 kolom fitur (variabel), dengan satu variabel target yaitu "**exam_score**".
+Dataset ini berisi informasi mengenai berbagai faktor gaya hidup, psikologis, dan kebiasaan belajar mahasiswa yang diasumsikan mempengaruhi performa akademik mereka, khususnya nilai ujian. Data ini terdiri dari 1000 baris data (entri) dan 15 kolom fitur (variabel), dengan satu variabel target yaitu "**exam_score**".
 
 ### Tahapan Data Understanding:
 1. Data Loading
    
 Langkah awal dilakukan dengan memuat dataset ke dalam lingkungan analisis menggunakan library Python seperti `pandas `. Proses ini bertujuan untuk melihat struktur awal data, memastikan dataset terbaca dengan benar, dan mengidentifikasi tipe data setiap kolom.
-3. EDA - Deskripsi Variabel
+
+
+2. EDA - Deskripsi Variabel
 
 |Fitur      |Tujuan                              |Tipe Data |
 |-----------|-----------------------------------|-----------|
@@ -77,156 +80,140 @@ Langkah awal dilakukan dengan memuat dataset ke dalam lingkungan analisis menggu
 Analisis univariat dilakukan untuk memahami karakteristik distribusi masing-masing variabel, baik numerikal maupun kategorikal, secara individu. Hal ini bertujuan untuk melihat pola umum dan serta distribusi frekuensi dari tiap fitur.
 
 **Fitur Kategorikal**:
-- gender: Distribusi gender cukup merata antara pria dan wanita, dengan sejumlah kecil responden mengidentifikasi sebagai `Other`. Ini menunjukkan representasi gender yang relatif seimbang.
-- part_time_job: Mayoritas responden tidak memiliki pekerjaan paruh waktu, menandakan bahwa sebagian besar individu lebih fokus pada studi penuh waktu atau aktivitas non-kerja lainnya.
-- diet_quality: Sebagian besar responden menilai kualitas makanan mereka berada pada kategori Fair dan Good, sementara hanya sebagian kecil yang berada di kategori Poor. Hal ini mencerminkan kondisi gizi dan kebiasaan makan yang relatif baik.
-- parental_education_level: Tingkat pendidikan orang tua didominasi oleh kategori High School dan Bachelor, diikuti oleh Master. Ini menunjukkan latar belakang pendidikan yang cukup bervariasi dan umumnya berada di tingkat menengah ke atas.
-- internet_quality: Responden umumnya melaporkan kualitas internet yang Good atau Average, dengan lebih sedikit yang mengalami kualitas Poor, yang berarti mayoritas memiliki akses internet yang memadai.
-- extracurricular_activities: Lebih dari dua kali lipat jumlah responden tidak berpartisipasi dalam kegiatan ekstrakurikuler dibandingkan yang berpartisipasi. Ini mengindikasikan bahwa kegiatan ekstrakurikuler masih belum menjadi kebiasaan umum di kalangan populasi responden.
+- `gender`: Distribusi gender dalam dataset relatif seimbang antara laki-laki (48.4%) dan perempuan (47.5%), dengan sejumlah kecil responden mengidentifikasi sebagai Other (4.0%). Komposisi ini menunjukkan representasi gender yang cukup merata, meskipun kategori "Other" masih minoritas.
+- `part_time_job`: Mayoritas responden tidak memiliki pekerjaan paruh waktu (78.6%), sementara hanya 21.4% yang bekerja paruh waktu. Ini mengindikasikan bahwa sebagian besar individu dalam populasi ini berfokus pada kegiatan lain seperti studi penuh waktu.
+- `diet_quality`: Responden paling banyak menilai kualitas makanan mereka sebagai Fair (43.8%), disusul oleh Good (38.4%), dan Poor (17.8%). Ini menunjukkan bahwa mayoritas responden memiliki pola makan yang cukup baik, dengan sebagian kecil mengalami pola makan yang buruk.
+- `parental_education_level`: Tingkat pendidikan orang tua paling banyak berada di kategori High School (43.1%), diikuti oleh Bachelor (38.6%) dan Master (18.3%). Komposisi ini menunjukkan latar belakang pendidikan orang tua yang umumnya menengah ke atas, namun masih didominasi oleh pendidikan sekolah menengah.
+- `internet_quality`: Mayoritas responden menilai kualitas internet mereka sebagai Good (45.2%) dan Average (38.7%), dengan hanya 16.1% yang mengalami kualitas internet Poor. Hal ini menunjukkan bahwa sebagian besar responden memiliki akses internet yang cukup baik, yang dapat berpengaruh terhadap aktivitas belajar atau hiburan mereka.
+- `extracurricular_activities`: Sebanyak 68.0% responden tidak mengikuti kegiatan ekstrakurikuler, sementara hanya 32.0% yang berpartisipasi. Ini menandakan bahwa partisipasi dalam kegiatan ekstrakurikuler masih belum umum di kalangan responden, yang mungkin dapat memengaruhi aspek pengembangan diri di luar akademik.
 
 **Fitur Numerik**:
-- age: Distribusinya cenderung normal atau sedikit skewed, tergantung pada kelompok usia yang mendominasi (misalnya siswa sekolah atau mahasiswa).
-- netflix_hours: Distribusi miring ke kanan (right-skewed), menunjukkan sebagian besar responden menonton dalam jumlah sedang, dengan segelintir yang menonton dalam durasi ekstrem.
-- exercise_frequency: Distribusi bisa bimodal (kelompok yang rutin dan yang jarang berolahraga), atau miring ke kiri jika mayoritas responden aktif berolahraga.
-- attendance_percentage: Distribusi umumnya tinggi, menunjukkan bahwa sebagian besar responden memiliki tingkat kehadiran yang baik, dan cenderung miring ke kiri.
-- mental_health_rating: Sebagian besar responden melaporkan kesehatan mental yang baik.
-- social_media_hours: Distribusi miring ke kanan, dengan mayoritas menggunakan media sosial dalam jumlah sedang, tetapi ada outlier yang menghabiskan waktu berlebihan di media sosial.
-- sleep_hours: Distribusinya mendekati normal, berkisar antara 6–9 jam per hari, sesuai dengan kebiasaan tidur sehat.
-- exam_score (target): Distribusi nilai ujian menunjukkan pola yang relatif normal, meskipun terdapat kemungkinan sedikit skewed ke kiri jika mayoritas memiliki nilai tinggi, atau bimodal jika terdapat gap performa antara dua kelompok besar.
+- `age`: Distribusi usia cukup merata antara 17 hingga 24 tahun, dengan sedikit lonjakan pada usia 20 dan 24 tahun. Ini menunjukkan bahwa responden berasal dari rentang usia mahasiswa atau remaja akhir.
+- `atudy_hours_per_day`: Sebagian besar responden belajar antara 2 hingga 5 jam per hari, dengan puncak sekitar 3–4 jam. Distribusi agak right-skewed, artinya sedikit responden yang belajar lebih dari 6 jam per hari.
+- `social_media_hours`: Distribusi waktu penggunaan media sosial cukup variatif, dengan puncak di sekitar 2–3 jam. Terlihat pola yang agak tidak teratur, tapi mayoritas masih menggunakan media sosial dalam rentang 1–4 jam per hari.
+- `netflix_hours`: Sebagian besar responden menonton Netflix selama 1–2 jam per hari, dengan jumlah kecil yang menonton lebih dari 3 jam. Distribusi ini juga right-skewed, menunjukkan bahwa binge-watching bukan kebiasaan mayoritas.
+- `attendance_percentage`: Sebagian besar responden memiliki persentase kehadiran tinggi, dengan konsentrasi kuat antara 85% hingga 100%. Hal ini menunjukkan tingkat kedisiplinan yang baik secara umum.
+- `sleep_hours`: Distribusi jam tidur membentuk pola normal (bell-shaped) dengan puncak di 6 hingga 7 jam per hari. Artinya, sebagian besar responden tidur dalam durasi yang disarankan untuk dewasa muda.
+- `exercise_frequency`: Distribusinya cukup merata antara 0 hingga 6 kali per minggu, menunjukkan kebiasaan olahraga yang beragam — dari yang tidak pernah hingga yang cukup rutin.
+- `mental_health_rating`: Sebagian besar nilai mental health rating terdistribusi merata dari 1 sampai 10, yang bisa mengindikasikan persepsi kesehatan mental yang bervariasi, tanpa dominasi jelas.
+- `exam_score` (target): Distribusi nilai ujian menyerupai bentuk normal, dengan puncak antara 60–70. Ini menunjukkan performa umum berada di tingkat sedang hingga baik.
 
 5. EDA - Multivariate Analysis
-6. 
-Analisis ini mengeksplorasi hubungan antar fitur, khususnya terhadap variabel target `exam_score`:
+**Fitur Kategorikal**:
+- `gender`: Perempuan cenderung memiliki performa ujian yang lebih baik dibandingkan laki-laki. Bisa jadi karena perbedaan gaya belajar atau manajemen waktu.
+- `part_time_job`: Bekerja sambil sekolah bisa mengganggu waktu belajar dan fokus sehingga berdampak negatif terhadap performa akademik.
+- `diet_quality`: Pola makan tidak selalu berkorelasi langsung dengan performa akademik; bisa jadi siswa dengan diet `Fair` justru memiliki gaya hidup seimbang lainnya.
+- `parental_education_level`: Hasil yang didapat tidak linear, bisa jadi memiliki faktor lain seperti dukungan emosional atau ekspektasi orang tua mungkin lebih berperan daripada tingkat pendidikan formal mereka.
+- `internet_quality`: Koneksi internet yang terlalu baik mungkin mengarah pada distraksi online, sementara koneksi terlalu buruk menghambat akses belajar. Kualitas cukup bisa jadi ideal untuk menjaga fokus.
+- `extracurricular_participation`: Fokus penuh pada akademik bisa meningkatkan nilai ujian, tetapi perlu ditimbang dengan keterampiral non-akademik yang dikembangkan lewat ekstrakurikuler.
 
-- Bar Plot
-- Pair Plot
-- Matrix Correlation
-[image](https://github.com/user-attachments/assets/222e2a02-c44d-48c7-ba89-38d0892b6c54)
-
-## Referensi
-Aguilar-Martínez, A., Monteiro, A. M., & Pons-Salvador, G. (2024). Physical activity and academic performance: The mediating effect of cognitive engagement in university students. Humanities and Social Sciences Communications, 11(1). https://doi.org/10.1057/s41599-025-04630-4
-
-Mackenzie, K., Perkins, S. J., & Chapman, D. (2021). Predicting students’ academic performance using machine learning: A systematic review. Education and Information Technologies, 26, 3937–3965. https://doi.org/10.1007/s10639-021-10401-x
-
-Yusof, S. N. M., Rahim, S. S. S. A., & Hassan, S. A. (2020). The relationship between sleeping habits and academic performance among university students. International Journal of Academic Research in Business and Social Sciences, 10(5), 911–921. https://doi.org/10.6007/IJARBSS/v10-i5/7326
-
-Rodriguez, I. A., & Cruz, M. R. (2023). Predictive modeling of student academic performance using regression techniques. Journal of Educational Computing Research, 61(4), 894–915. https://doi.org/10.1177/07356331221134589
-
-
-
-
-### Permasalahan
-Penilaian kualitas wine yang subjektif dapat menyebabkan inkonsistensi dalam evaluasi, yang berdampak pada kepercayaan konsumen dan efisiensi produksi. Oleh karena itu, diperlukan sistem prediksi yang dapat memberikan hasil yang konsisten dan dapat diandalkan.
-
-### Tujuan Proyek
-Proyek ini bertujuan untuk membangun model machine learning yang dapat memprediksi apakah sebuah wine memiliki kualitas baik atau tidak, berdasarkan parameter kimiawi yang tersedia. Model ini diharapkan dapat membantu produsen dalam mengontrol kualitas produk secara lebih efisien dan objektif (Zaza et al., 2023).
-
-### Algoritma yang Digunakan
-Dalam proyek ini, pendekatan supervised learning digunakan dengan menerapkan beberapa algoritma, yaitu
-- Random Forest
-- KNN
-- SVC
-- Extra Trees
-- LightGBM
-
-## Business Understanding
-
-### Problem Statements
-- Bagaimana cara meminimalkan ketergantungan terhadap penilaian subjektif dari ahli pencicip wine dalam menilai kualitas wine?
-- Apa saja fitur kimiawi yang paling berpengaruh dalam menentukan kualitas wine dan bagaimana menggunakannya untuk membuat prediksi yang akurat?
-- Algoritma machine learning mana yang paling optimal dalam memprediksi kualitas wine berdasarkan data yang tersedia?
-
-### Goals
-- Mengembangkan sistem prediksi kualitas wine yang objektif dan akurat menggunakan data kimia dari wine.
-- Mengidentifikasi fitur kimia yang paling berpengaruh terhadap kualitas wine dan menyederhanakan model tanpa mengorbankan akurasi.
-- Membandingkan beberapa algoritma machine learning untuk menentukan model terbaik.
-
-### Solution statements
-- Menggunakan beberapa algoritma machine learning seperti Random Forest, KNN, SVM, Extra Trees, dan LightGBM untuk membangun model klasifikasi kualitas wine.
-- Melakukan pemilihan fitur berdasarkan korelasi dan importance score.
-- Melakukan penyetelan hiperparameter pada model terbaik untuk mencapai performa optimal.
-- Evaluasi model dilakukan menggunakan metrik akurasi, precision, recall, dan F1-score.
-  
-## Data Understanding
-### Dataset
-Dataset yang digunakan berasal dari UCI Machine Learning Repository, tersedia di Kaggle (Cortez et al., 2009). Dataset ini terdiri dari 1.599 sampel wine merah dengan 11 fitur kimia, seperti kadar alkohol, keasaman, dan sulfur dioksida.
-
-Link dataset: https://www.kaggle.com/datasets/uciml/red-wine-quality-cortez-et-al-2009
-
-### Fitur-Fitur Dataset
-|Fitur              |Deskripsi                                   |
-|-------------------|--------------------------------------------|
-|fixed acidity |Konsentrasi asam tetap (tidak menguap) seperti tartaric acid.|
-|volatile acidity |Konsentrasi asam yang mudah menguap seperti asam asetat.|
-|citric acid |Asam sitrat, memberi rasa segar dan membantu stabilisasi wine.|
-|residual sugar |Gula yang tersisa setelah fermentasi (g/I). |
-|chlorides |Konsentrasi garam (natrium klorida). |
-|free sulfur dioxide |SO₂ bebas untuk mencegah mikroba dan oksidasi. |
-|total sulfur dioxide |Total SO₂ bebas dan terikat.|
-|density |Kepadatan wine, berkorelasi dengan kadar alkohol dan gula.|
-|pH |Keasaman wine, skala logaritmik.|
-|sulphates|Aditif yang meningkatkan stabilitas dan daya simpan.|
-|alcohol|Persentase alkohol dalam wine|
-|quality (Target) |Skor kualitas wine (integer 3-8) yang dinilai oleh pencicip.|
-
-### EDA - Univariate Analysis
-~ Image
-Gambar 1. Analisis Univariat (Data Numerik)
-
-[Berdasarkan Gambar 1. (Deskripsi)
-
-### EDA - Multivariate Analysis
-~ Image
-Gambar 2. Analisis Multivariat
-
-~ Image
-Gambar 3. Analisis Matriks Korelasi
-
-[Berdasarkan gambar 2.............. gambar 3...........]
-
+**Fitur Numerik**:
+|Fitur                |Korelasi dengan `exam_score`     |Kekuatan Korelasi        |Tipe         |Insight Penting         |
+|---------------------|-----------|----------|-----------|---------------|
+|`study_hours_per_day` |0,82       |Sangat kuat |Positif |Ini adalah faktor terkuat yang menentukan nilai ujian. Semakin banyak belajar, semakin tinggi skornya. |
+|`mental_health_rating` |0,32 |Sedang/Lemah |Positif |Kesehatan mental yang baik cenderung mendukung performa belajar. |
+|`exercise_frequency` |0,16 |Lemah |Positif |Olahraga mungkin membantu fokus/energi tapi tidak signifikan. |
+|`sleep_hours` |0,13 |Lemah |Positif |Tidak cukup sedikit membantu hasil ujian. |
+|`attendance_percentage` |0,10 |Lemah |Positif |Hadir di kelas penting, tapi tidak sekuat waktu belajar. |
+|`netflix_hours` |-0,16 |Lemah |Negatif |Waktu untuk hiburan berlebihan bisa menggangu performa belajar |
+|`social_media_hours` |-0,18 |Lemah |Negatif |Semakin banyak waktu di media sosial, cenderung menurunkan skor. |
+|`age` |-0,01 |Sangat lemah/tidak ada |Netral |Usia tidak memiliki pengaruh signifikan dalam dataset ini. |
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+Tahapan data preparation dilakukan untuk mempersiapkan data mentah agar siap digunakan dalam proses pemodelan machine learning. Proses ini penting untuk memastikan bahwa data bersih, konsisten, dan berada dalam format yang dapat dipahami oleh algoritma.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+### 1. Encoding Fitur Kategori
+Encoding fitur kategori menggunakan OneHotEncoder untuk mengubah fitur kategorikal menjadi nemerik. Sebagian besar algoritma machine learning tidak bisa menangani data dalam bentuk teks atau kategori secara langsung sehingga encoding diperlukan untuk mengonversi fitur kategorikal menjadi format numerik dan memastikan seluruh fitur berada dalam skala numerik agar bisa diproses oleh model seperti clustering atau klasifikasi.
+
+### 2. Train-Test Split
+Train-Test split membagi dataset menjadi data latih (train) dan data uji (test) menggunakan rasio 80:20 dengan fungsi `train_test_split()` dari sklearn.
+
+Sehingga total data setelah terbagi adalah 715 data latih (train) dan 179 data uji (test).
+
+Pemisahan data ini dilakukan untuk dapat melatih model pada subset data (train), menguji performa model pada data baru yang belum pernah dilihat sebelumnya (test), dan menghindari overfitting atau hasil evaluasi yang bias.
+
+### 3. Standarisasi
+Standarisasi dilakukan menggunakan metode `StandardScaler` dari sklearn.preprocessing untuk mentransformasi data numerik agar memiliki rata-rata (mean) 0 dan standar deviasi (std) 1.
+
+Hal ini diperlukan karena beberapa algoritma seperti KNN dan metode berbasis jarak (termasuk clustering) sensitif terhadap skala fitur. Selain itu, fitur dengan skala besar bisa mendominasi fitur lain saat perhitungan jarak dilakukan. Standarisasi juga membantu konvergensi model lebih cepat dan akurat.
 
 ## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+Tahapan modeling bertujuan untuk membangun model machine learning yang mampu memprediksi nilai `exam_score` berdasarkan fitur-fitur yang telah dipersiapkan. Tiga algoritma yang digunakan dalam proses ini adalah:
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+- K-Nearest Neighbors (KNN) Regressor
+- Random Forest Regressor
+- AdaBoost Regressor
 
-## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+### 1. K-Nearest Neighbors (KNN) Regressor
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+Algoritma: `KNeighborsRegressor`
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+Parameter utama: `n_neighbors=10` -> Jumlah tetangga terdekat untuk menentukan prediksi.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja
+Kelebihan:
+- Sederhana dan mudah dipahami
+- Cocok untuk dataset kecil
 
+Kekurangan:
+- Sensitif terhadap skala data dan noise
+- Performa menurun jika fitur terlalu banyak (curse of dimensionality)
+- Proses prediksi lambat pada dataset besar (karena tidak melakukan pelatihan eksplisit)
 
+### 2. Random Forest Regressor
 
-Referensi Terkait
-Berikut adalah beberapa referensi yang mendukung pendekatan dan pemilihan fitur dalam proyek ini:
+Algoritma: `RandomForestRegressor`
 
-Xu, B. (2024). Mengoptimalkan Prediksi Kualitas Anggur Merah: Dampak Pemilihan Fitur dan Evaluasi Model. Kemajuan dalam Ekonomi, Manajemen dan
+Parameter utama: 
+- `n_estimators=50` -> Jumlah pohon
+- `max_depth=16` -> kedalaman maksimum tiap pohon
+- `random_state=55` -> untuk reproduktibilitas hasil
+- `n-jobs=-1` -> untuk mempercepat pelatihan dengan menggunakan semua inti CPU
 
-Arshad, H. (2024). Prediksi Kualitas Anggur Menggunakan Machine Learning. Jurnal Komputasi Inovatif dan Teknologi Muncul, 4(2). Tautan
+Kelebihan:
+- Mengurangi overfitting dibandingkan decision tree tunggal
+- Menangani data non-linear dengan baik
+- Memberikan fitur penting (feature importance)
 
-Zaza, S., Atemkeng, M., & Hamlomo, S. (2023). Prediksi pentingnya dan kualitas fitur anggur: Studi komparatif algoritme pembelajaran mesin dengan data yang tidak seimbang
+Kekurangan:
+- Lebih bambah dibanding model sederhana
+- Lebih kompleks untuk ditafsirkan
+- 
+### 3. AdaBoost Regressor
 
-Fabiyanto, D., & Rianto, Y. (2024). Evaluasi Kinerja Beberapa Model Pembelajaran Mendalam untuk Prediksi Kualitas Anggur
+Algoritma: `AdaBoostRegressor`
 
-Dahal, KR, Dahal, JN, Banjade, H., & Gaire, S. (2021). Prediksi Kualitas Anggur Menggunakan Algoritma Pembelajaran Mesin
+Parameter utama: 
+- `learning_rate=0.05` -> tingkat kontribusi setiap model lemah
+- `random_state=55`-> untuk konsistensi hasil
 
-Pada bagian ini, kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
+Kelebihan:
+- Bagus untuk menangani data dengan noise rendah
+- Dapat meningkatkan akurasi model lemah (weak learners)
 
+Kekurangan:
+- Sensitif terhadap outlier
+- Butuh banyak eksperimen terhadap learning rata dan jumlah estimators.
 
+Ada pun proses penerapannya adalah berikut:
+- Model dilatih menggunakan data latih
+- Kemudian digunakan untuk memprediksi nlai pada data train dan test
+
+## Modeling
+Dalam proyek ini, metrik yang digunakan untuk mengukur performa model adalah Mean Squared Error (MSE). 
+
+MSE mengukur rata-rata kuadrat selisih antara nilai prediksi dan nilai aktual. Semakin kecil nilai MSE, maka semakin baik performa model dalam memprediksi data.
+
+MSE sangat sensitif terhadap nilai error yang besar karena menghitung kuadrat selisih, sehingga cocok untuk mengidentifikasi model yang menghasilkan prediksi yang konsisten.
+
+Hasil evaluasi model pada data latih dan data uji untuk masing-masing model 
+
+|       | train | test|
+|-------|-------|-----|
+|KNN	|0.065565	|0.078219 |
+|RF	|0.006112	|0.036465 |
+|Boosting |0.059361	|0.065237 |
+
+Berdasarkan hasil evaluasi, model dengan nilai MSE paling rendah pada data uji dan data latih adalah Random Forest, sehingga dipilih sebagai model terbaik dalam proyek ini. Hal ini menunjukkan bahwa model tersebut memiliki performa prediksi yang paling akurat dan generalisasi terbaik terhadap data yang belum dilihat.
+
+## Referensi
+Kayani, S. et al. (2018). Physical Activity and Academic Performance: The Mediating Effect of Self-Esteem and Depression. Sustainability (Switzerland). Retrieved from https://doi.org/10.3390/su10103633
