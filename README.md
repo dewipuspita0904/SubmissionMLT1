@@ -1,9 +1,9 @@
 # Laporan Proyek Machine Learning - Dewi Puspita
+![exam_score](https://agentrealestateschools.com/wp-content/uploads/2021/11/passing-score-for-real-estate-exam.jpg)
 
 ## Domain Proyek
 
 ### Latar Belakang
-![exam_score](https://agentrealestateschools.com/wp-content/uploads/2021/11/passing-score-for-real-estate-exam.jpg)
 Pendidikan tinggi memiliki peran penting dalam membentuk masa depan individu dan masyarakat. Namun, pencapaian akademik mahasiswa tidak hanya ditentukan oleh kurikulum formal, melainkan juga oleh faktor-faktor eksternal seperti kebiasaan belajar, durasi penggunaan media sosial, kualitas tidur, kondisi kesehatan mental, dan partisipasi ekstrakurikuler. Pemahaman yang baik terhadap pengaruh variabel-variabel ini dapat membantu institusi pendidikan merancang intervensi yang tepat untuk mendukung performa mahasiswa.
 
 Berbagai penelitian telah menunjukkan bahwa kebiasaan hidup sehat dan pola belajar yang baik secara signifikan berhubungan dengan capaian akademik yang lebih tinggi. Misalnya, durasi belajar yang konsisten, partisipasi dalam kegiatan fisik, serta kualitas tidur dan kesehatan mental berkorelasi positif terhadap skor ujian [(Kayani, S. et al., 2024)](https://doi.org/10.3390/su10103633).
@@ -144,6 +144,10 @@ Tahapan modeling bertujuan untuk membangun model machine learning yang mampu mem
 - Random Forest Regressor
 - AdaBoost Regressor
 
+Ada pun proses penerapannya adalah berikut:
+- Model dilatih menggunakan data latih
+- Kemudian digunakan untuk memprediksi nlai pada data train dan test
+
 ### 1. K-Nearest Neighbors (KNN) Regressor
 
 Algoritma: `KNeighborsRegressor`
@@ -177,7 +181,7 @@ Kelebihan:
 Kekurangan:
 - Lebih bambah dibanding model sederhana
 - Lebih kompleks untuk ditafsirkan
-- 
+  
 ### 3. AdaBoost Regressor
 
 Algoritma: `AdaBoostRegressor`
@@ -193,10 +197,6 @@ Kelebihan:
 Kekurangan:
 - Sensitif terhadap outlier
 - Butuh banyak eksperimen terhadap learning rata dan jumlah estimators.
-
-Ada pun proses penerapannya adalah berikut:
-- Model dilatih menggunakan data latih
-- Kemudian digunakan untuk memprediksi nlai pada data train dan test
 
 ## Modeling
 Dalam proyek ini, metrik yang digunakan untuk mengukur performa model adalah Mean Squared Error (MSE). 
