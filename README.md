@@ -4,9 +4,9 @@
 ## Domain Proyek
 
 ### Latar Belakang
-Pendidikan tinggi memiliki peran penting dalam membentuk masa depan individu dan masyarakat. Namun, pencapaian akademik mahasiswa tidak hanya ditentukan oleh kurikulum formal, melainkan juga oleh faktor-faktor eksternal seperti kebiasaan belajar, durasi penggunaan media sosial, kualitas tidur, kondisi kesehatan mental, dan partisipasi ekstrakurikuler. Pemahaman yang baik terhadap pengaruh variabel-variabel ini dapat membantu institusi pendidikan merancang intervensi yang tepat untuk mendukung performa mahasiswa.
+Pendidikan tinggi memiliki peran penting dalam membentuk masa depan individu dan masyarakat. Namun, pencapaian akademik mahasiswa tidak hanya ditentukan oleh kurikulum formal, melainkan juga oleh faktor-faktor eksternal seperti kebiasaan belajar, durasi penggunaan media sosial, kondisi kesehatan mental, dan jam belajar per hari. Pemahaman yang baik terhadap pengaruh variabel-variabel ini dapat membantu institusi pendidikan merancang intervensi yang tepat untuk mendukung performa mahasiswa.
 
-Berbagai penelitian telah menunjukkan bahwa kebiasaan hidup sehat dan pola belajar yang baik secara signifikan berhubungan dengan capaian akademik yang lebih tinggi. Misalnya, durasi belajar yang konsisten, partisipasi dalam kegiatan fisik, serta kualitas tidur dan kesehatan mental berkorelasi positif terhadap skor ujian [(Kayani, S. et al., 2024)](https://doi.org/10.3390/su10103633).
+Berbagai penelitian telah menunjukkan bahwa kebiasaan hidup sehat dan pola belajar yang baik secara signifikan berhubungan dengan capaian akademik yang lebih tinggi. Misalnya, durasi belajar yang konsisten, partisipasi dalam kegiatan fisik, serta kesehatan mental berkorelasi positif terhadap skor ujian [(Kayani, S. et al., 2024)](https://doi.org/10.3390/su10103633).
 
 Dengan perkembangan teknologi dan tersedianya dataset pendidikan yang kaya, pendekatan berbasis machine learning dapat digunakan untuk membangun model prediktif performa akademik. Model seperti ini tidak hanya meningkatkan efisiensi proses identifikasi risiko, tetapi juga membantu pengambilan keputusan berbasis data di lingkungan pendidikan.
 
@@ -29,7 +29,6 @@ Proyek ini bertujuan untuk membangun model regresi guna memprediksi exam score m
 
 ### Solution Statements
 Solution statements dilakukan dengan mengimplementasikan 3 algoritma dalam permodelan, yakni:
-- **K-Nearest Neighbors (KNN)**: Memberikan gambaran awal mengenai prediksi menggunakan pendekatan berbasis kedekatan data.
 - **Random Forest Regressor**: Cocok untuk menangani banyak fitur dan interaksi non-linear antar variabel, serta stabil dalam performa dan mampu mengurangi overfitting melalui teknik ensemble (bagging).
 - **AdaBoost Regressor**: Menggunakan pendekatan boosting adaptif untuk meningkatkan akurasi secara bertahap dari kesalahan model sebelumnya. Efektif untuk meningkatkan performa regresi pada dataset dengan noise rendah hingga sedang dan memiliki kemampuan fokus pada observasi yang sulit diprediksi, sehingga dapat meningkatkan presisi model.
 
@@ -70,22 +69,22 @@ Langkah awal dilakukan dengan memuat dataset ke dalam lingkungan analisis menggu
 |extracurricular_participation|Apakah mengikuti ekstrakulikuler atau tidak|object |
 |exam_score (target)|Nilai ujian|float64 |
 
-3. EDA - Menangani Missing Value dan Outliers
+3. EDA - Missing Value dan Outliers
 
-- **Missing Value**: Hasil pengecekan menunjukkan bahwa dataset mengandung 91 missing value pada `parental_education_level` sehingga dilakukan `dropna()` untuk memangkas data tersebut.
-- **Outliers**: Deteksi dilakukan pada fitur numerik menggunakan boxplot dan metode IQR. Outlier ditemukan pada fitur seperti `study_hours_per_day`, `sosial_media_hours`, `netflix_hours`, `attendance_percentage`, dan `sleep_hours`. Setelah data yang berada pada outlier dipangkas, maka dataset tersisa 894 sampel.
+- **Missing Value**: Hasil pengecekan menunjukkan bahwa dataset mengandung 91 missing value pada `parental_education_level`.
+- **Outliers**: Deteksi dilakukan pada fitur numerik menggunakan boxplot dan metode IQR. Outlier ditemukan pada fitur seperti `study_hours_per_day`, `sosial_media_hours`, `netflix_hours`, `attendance_percentage`, dan `sleep_hours`.
 
 4. EDA - Univariate Analysis
 
 Analisis univariat dilakukan untuk memahami karakteristik distribusi masing-masing variabel, baik numerikal maupun kategorikal, secara individu. Hal ini bertujuan untuk melihat pola umum dan serta distribusi frekuensi dari tiap fitur.
 
 **Fitur Kategorikal**:
-- `gender`: Distribusi gender dalam dataset relatif seimbang antara laki-laki (48.4%) dan perempuan (47.5%), dengan sejumlah kecil responden mengidentifikasi sebagai Other (4.0%). Komposisi ini menunjukkan representasi gender yang cukup merata, meskipun kategori "Other" masih minoritas.
-- `part_time_job`: Mayoritas responden tidak memiliki pekerjaan paruh waktu (78.6%), sementara hanya 21.4% yang bekerja paruh waktu. Ini mengindikasikan bahwa sebagian besar individu dalam populasi ini berfokus pada kegiatan lain seperti studi penuh waktu.
-- `diet_quality`: Responden paling banyak menilai kualitas makanan mereka sebagai Fair (43.8%), disusul oleh Good (38.4%), dan Poor (17.8%). Ini menunjukkan bahwa mayoritas responden memiliki pola makan yang cukup baik, dengan sebagian kecil mengalami pola makan yang buruk.
-- `parental_education_level`: Tingkat pendidikan orang tua paling banyak berada di kategori High School (43.1%), diikuti oleh Bachelor (38.6%) dan Master (18.3%). Komposisi ini menunjukkan latar belakang pendidikan orang tua yang umumnya menengah ke atas, namun masih didominasi oleh pendidikan sekolah menengah.
-- `internet_quality`: Mayoritas responden menilai kualitas internet mereka sebagai Good (45.2%) dan Average (38.7%), dengan hanya 16.1% yang mengalami kualitas internet Poor. Hal ini menunjukkan bahwa sebagian besar responden memiliki akses internet yang cukup baik, yang dapat berpengaruh terhadap aktivitas belajar atau hiburan mereka.
-- `extracurricular_activities`: Sebanyak 68.0% responden tidak mengikuti kegiatan ekstrakurikuler, sementara hanya 32.0% yang berpartisipasi. Ini menandakan bahwa partisipasi dalam kegiatan ekstrakurikuler masih belum umum di kalangan responden, yang mungkin dapat memengaruhi aspek pengembangan diri di luar akademik.
+- `gender`: Distribusi gender dalam dataset relatif seimbang antara laki-laki (47.7%) dan perempuan (48.1%), dengan sejumlah kecil responden mengidentifikasi sebagai Other (4.2%). Komposisi ini menunjukkan representasi gender yang cukup merata, meskipun kategori "Other" masih minoritas.
+- `part_time_job`: Mayoritas responden tidak memiliki pekerjaan paruh waktu (78.5%), sementara hanya 21.5% yang bekerja paruh waktu. Ini mengindikasikan bahwa sebagian besar individu dalam populasi ini berfokus pada kegiatan lain seperti studi penuh waktu.
+- `diet_quality`: Responden paling banyak menilai kualitas makanan mereka sebagai Fair (43.7%), disusul oleh Good (37.8%), dan Poor (18.5%). Ini menunjukkan bahwa mayoritas responden memiliki pola makan yang cukup baik, dengan sebagian kecil mengalami pola makan yang buruk.
+- `parental_education_level`: Tingkat pendidikan orang tua paling banyak berada di kategori High School (43.1%), diikuti oleh Bachelor (38.5%) dan Master (18.4%). Komposisi ini menunjukkan latar belakang pendidikan orang tua yang umumnya menengah ke atas, namun masih didominasi oleh pendidikan sekolah menengah.
+- `internet_quality`: Mayoritas responden menilai kualitas internet mereka sebagai Good (44.7%) dan Average (39.1%), dengan hanya 16.2% yang mengalami kualitas internet Poor. Hal ini menunjukkan bahwa sebagian besar responden memiliki akses internet yang cukup baik, yang dapat berpengaruh terhadap aktivitas belajar atau hiburan mereka.
+- `extracurricular_activities`: Sebanyak 68.2% responden tidak mengikuti kegiatan ekstrakurikuler, sementara hanya 31.8% yang berpartisipasi. Ini menandakan bahwa partisipasi dalam kegiatan ekstrakurikuler masih belum umum di kalangan responden, yang mungkin dapat memengaruhi aspek pengembangan diri di luar akademik.
 
 **Fitur Numerik**:
 - `age`: Distribusi usia cukup merata antara 17 hingga 24 tahun, dengan sedikit lonjakan pada usia 20 dan 24 tahun. Ini menunjukkan bahwa responden berasal dari rentang usia mahasiswa atau remaja akhir.
@@ -110,17 +109,21 @@ Analisis univariat dilakukan untuk memahami karakteristik distribusi masing-masi
 **Fitur Numerik**:
 |Fitur                |Korelasi dengan `exam_score`     |Kekuatan Korelasi        |Tipe         |Insight Penting         |
 |---------------------|-----------|----------|-----------|---------------|
-|`study_hours_per_day` |0,82       |Sangat kuat |Positif |Ini adalah faktor terkuat yang menentukan nilai ujian. Semakin banyak belajar, semakin tinggi skornya. |
+|`study_hours_per_day` |0,83       |Sangat kuat |Positif |Ini adalah faktor terkuat yang menentukan nilai ujian. Semakin banyak belajar, semakin tinggi skornya. |
 |`mental_health_rating` |0,32 |Sedang/Lemah |Positif |Kesehatan mental yang baik cenderung mendukung performa belajar. |
 |`exercise_frequency` |0,16 |Lemah |Positif |Olahraga mungkin membantu fokus/energi tapi tidak signifikan. |
-|`sleep_hours` |0,13 |Lemah |Positif |Tidak cukup sedikit membantu hasil ujian. |
-|`attendance_percentage` |0,10 |Lemah |Positif |Hadir di kelas penting, tapi tidak sekuat waktu belajar. |
-|`netflix_hours` |-0,16 |Lemah |Negatif |Waktu untuk hiburan berlebihan bisa menggangu performa belajar |
-|`social_media_hours` |-0,18 |Lemah |Negatif |Semakin banyak waktu di media sosial, cenderung menurunkan skor. |
+|`sleep_hours` |0,11 |Lemah |Positif |Tidak cukup sedikit membantu hasil ujian. |
+|`attendance_percentage` |0,09 |Lemah |Positif |Hadir di kelas penting, tapi tidak sekuat waktu belajar. |
+|`netflix_hours` |-0,17 |Lemah |Negatif |Waktu untuk hiburan berlebihan bisa menggangu performa belajar |
+|`social_media_hours` |-0,17 |Lemah |Negatif |Semakin banyak waktu di media sosial, cenderung menurunkan skor. |
 |`age` |-0,01 |Sangat lemah/tidak ada |Netral |Usia tidak memiliki pengaruh signifikan dalam dataset ini. |
 
 ## Data Preparation
 Tahapan data preparation dilakukan untuk mempersiapkan data mentah agar siap digunakan dalam proses pemodelan machine learning. Proses ini penting untuk memastikan bahwa data bersih, konsisten, dan berada dalam format yang dapat dipahami oleh algoritma.
+
+Beberapa kolom seperti student_id, age, gender, diet_quality, dan lainnya di hapus karena dirasa memiliki korelasi yang rendah ataupun tidak berpengaruh sehingga tidak akan digunakan pada proses prediksi dan dihapus.
+
+Pada tahap ini juga, missing value dan outliers yang ditemukan pada Data Understanding dihapus sehingga tersisa 898 baris dan 8 kolom.
 
 ### 1. Encoding Fitur Kategori
 Encoding fitur kategori menggunakan OneHotEncoder untuk mengubah fitur kategorikal menjadi nemerik. Sebagian besar algoritma machine learning tidak bisa menangani data dalam bentuk teks atau kategori secara langsung sehingga encoding diperlukan untuk mengonversi fitur kategorikal menjadi format numerik dan memastikan seluruh fitur berada dalam skala numerik agar bisa diproses oleh model seperti clustering atau klasifikasi.
@@ -128,19 +131,18 @@ Encoding fitur kategori menggunakan OneHotEncoder untuk mengubah fitur kategorik
 ### 2. Train-Test Split
 Train-Test split membagi dataset menjadi data latih (train) dan data uji (test) menggunakan rasio 80:20 dengan fungsi `train_test_split()` dari sklearn.
 
-Sehingga total data setelah terbagi adalah 715 data latih (train) dan 179 data uji (test).
+Sehingga total data setelah terbagi adalah 718 data latih (train) dan 180 data uji (test).
 
 Pemisahan data ini dilakukan untuk dapat melatih model pada subset data (train), menguji performa model pada data baru yang belum pernah dilihat sebelumnya (test), dan menghindari overfitting atau hasil evaluasi yang bias.
 
-### 3. Standarisasi
-Standarisasi dilakukan menggunakan metode `StandardScaler` dari sklearn.preprocessing untuk mentransformasi data numerik agar memiliki rata-rata (mean) 0 dan standar deviasi (std) 1.
+### 3. Normalisasi
+Normalisasi dilakukan menggunakan metode `MinMaxScaler` dari sklearn.preprocessing untuk mentransformasi data numerik agar memiliki data yang berkisar dari angka 0 sampai dengan 1.
 
-Hal ini diperlukan karena beberapa algoritma seperti KNN dan metode berbasis jarak (termasuk clustering) sensitif terhadap skala fitur. Selain itu, fitur dengan skala besar bisa mendominasi fitur lain saat perhitungan jarak dilakukan. Standarisasi juga membantu konvergensi model lebih cepat dan akurat.
+Hal ini diperlukan karena beberapa algoritma yang memiliki metode berbasis jarak (termasuk clustering) sensitif terhadap skala fitur. Selain itu, fitur dengan skala besar bisa mendominasi fitur lain saat perhitungan jarak dilakukan. Normalisasi juga membantu konvergensi model lebih cepat dan akurat.
 
 ## Modeling
 Tahapan modeling bertujuan untuk membangun model machine learning yang mampu memprediksi nilai `exam_score` berdasarkan fitur-fitur yang telah dipersiapkan. Tiga algoritma yang digunakan dalam proses ini adalah:
 
-- K-Nearest Neighbors (KNN) Regressor
 - Random Forest Regressor
 - AdaBoost Regressor
 
@@ -148,22 +150,7 @@ Ada pun proses penerapannya adalah berikut:
 - Model dilatih menggunakan data latih
 - Kemudian digunakan untuk memprediksi nlai pada data train dan test
 
-### 1. K-Nearest Neighbors (KNN) Regressor
-
-Algoritma: `KNeighborsRegressor`
-
-Parameter utama: `n_neighbors=10` -> Jumlah tetangga terdekat untuk menentukan prediksi.
-
-Kelebihan:
-- Sederhana dan mudah dipahami
-- Cocok untuk dataset kecil
-
-Kekurangan:
-- Sensitif terhadap skala data dan noise
-- Performa menurun jika fitur terlalu banyak (curse of dimensionality)
-- Proses prediksi lambat pada dataset besar (karena tidak melakukan pelatihan eksplisit)
-
-### 2. Random Forest Regressor
+### 1. Random Forest Regressor
 
 Algoritma: `RandomForestRegressor`
 
@@ -182,7 +169,7 @@ Kekurangan:
 - Lebih bambah dibanding model sederhana
 - Lebih kompleks untuk ditafsirkan
   
-### 3. AdaBoost Regressor
+### 2. Adaptive Regressor
 
 Algoritma: `AdaBoostRegressor`
 
@@ -209,11 +196,10 @@ Hasil evaluasi model pada data latih dan data uji untuk masing-masing model
 
 |       | train | test|
 |-------|-------|-----|
-|KNN	|0.065565	|0.078219 |
-|RF	|0.006112	|0.036465 |
-|Boosting |0.059361	|0.065237 |
+|RF	|0.006764	|0.842023 |
+|Boosting |0.059158	|0.831474 |
 
-Berdasarkan hasil evaluasi, model dengan nilai MSE paling rendah pada data uji dan data latih adalah Random Forest, sehingga dipilih sebagai model terbaik dalam proyek ini. Hal ini menunjukkan bahwa model tersebut memiliki performa prediksi yang paling akurat dan generalisasi terbaik terhadap data yang belum dilihat.
+Berdasarkan hasil evaluasi, model Adaptive Boosting memberikan nilai eror yang paling kecil. Meskipun pada data train, nilai error cenderung lebih besar. Sehingga model Adaptive Boosting yang akan kita pilih sebagai model terbaik untuk melakukan prediksi nlai ujian.
 
 ## Referensi
 Kayani, S. et al. (2018). Physical Activity and Academic Performance: The Mediating Effect of Self-Esteem and Depression. Sustainability (Switzerland). Retrieved from https://doi.org/10.3390/su10103633
