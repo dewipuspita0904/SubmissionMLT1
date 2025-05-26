@@ -198,7 +198,7 @@ Kekurangan:
 - Sensitif terhadap outlier
 - Butuh banyak eksperimen terhadap learning rata dan jumlah estimators.
 
-## Modeling
+## Evaluation
 Dalam proyek ini, metrik yang digunakan untuk mengukur performa model adalah Mean Squared Error (MSE). 
 
 MSE mengukur rata-rata kuadrat selisih antara nilai prediksi dan nilai aktual. Semakin kecil nilai MSE, maka semakin baik performa model dalam memprediksi data.
