@@ -123,7 +123,7 @@ Tahapan data preparation dilakukan untuk mempersiapkan data mentah agar siap dig
 
 Beberapa kolom seperti student_id, age, gender, diet_quality, dan lainnya di hapus karena dirasa memiliki korelasi yang rendah ataupun tidak berpengaruh sehingga tidak akan digunakan pada proses prediksi dan dihapus.
 
-Pada tahap ini juga, missing value dan outliers yang ditemukan pada Data Understanding dihapus sehingga tersisa 898 baris dan 8 kolom.
+Pada tahap ini juga, missing value dan outliers yang ditemukan pada Data Understanding ditangani sehingga tersisa 1000 baris dan 8 kolom.
 
 ### 1. Encoding Fitur Kategori
 Encoding fitur kategori menggunakan OneHotEncoder untuk mengubah fitur kategorikal menjadi nemerik. Sebagian besar algoritma machine learning tidak bisa menangani data dalam bentuk teks atau kategori secara langsung sehingga encoding diperlukan untuk mengonversi fitur kategorikal menjadi format numerik dan memastikan seluruh fitur berada dalam skala numerik agar bisa diproses oleh model seperti clustering atau klasifikasi.
@@ -131,14 +131,9 @@ Encoding fitur kategori menggunakan OneHotEncoder untuk mengubah fitur kategorik
 ### 2. Train-Test Split
 Train-Test split membagi dataset menjadi data latih (train) dan data uji (test) menggunakan rasio 80:20 dengan fungsi `train_test_split()` dari sklearn.
 
-Sehingga total data setelah terbagi adalah 718 data latih (train) dan 180 data uji (test).
+Sehingga total data setelah terbagi adalah 785 data latih (train) dan 197 data uji (test).
 
 Pemisahan data ini dilakukan untuk dapat melatih model pada subset data (train), menguji performa model pada data baru yang belum pernah dilihat sebelumnya (test), dan menghindari overfitting atau hasil evaluasi yang bias.
-
-### 3. Normalisasi
-Normalisasi dilakukan menggunakan metode `MinMaxScaler` dari sklearn.preprocessing untuk mentransformasi data numerik agar memiliki data yang berkisar dari angka 0 sampai dengan 1.
-
-Hal ini diperlukan karena beberapa algoritma yang memiliki metode berbasis jarak (termasuk clustering) sensitif terhadap skala fitur. Selain itu, fitur dengan skala besar bisa mendominasi fitur lain saat perhitungan jarak dilakukan. Normalisasi juga membantu konvergensi model lebih cepat dan akurat.
 
 ## Modeling
 Tahapan modeling bertujuan untuk membangun model machine learning yang mampu memprediksi nilai `exam_score` berdasarkan fitur-fitur yang telah dipersiapkan. Tiga algoritma yang digunakan dalam proses ini adalah:
@@ -196,10 +191,10 @@ Hasil evaluasi model pada data latih dan data uji untuk masing-masing model
 
 |       | train | test|
 |-------|-------|-----|
-|RF	|0.006764	|0.842023 |
-|Boosting |0.059158	|0.831474 |
+|RF	|0.006551	|0.0496 |
+|Boosting |0.061567	|0.066829 |
 
-Berdasarkan hasil evaluasi, model Adaptive Boosting memberikan nilai eror yang paling kecil. Meskipun pada data train, nilai error cenderung lebih besar. Sehingga model Adaptive Boosting yang akan kita pilih sebagai model terbaik untuk melakukan prediksi nlai ujian.
+Berdasarkan hasil evaluasi, model Random Forest memberikan nilai eror yang paling kecil. Sehingga model Random Forest yang akan kita pilih sebagai model terbaik untuk melakukan prediksi nlai ujian.
 
 ## Referensi
 Kayani, S. et al. (2018). Physical Activity and Academic Performance: The Mediating Effect of Self-Esteem and Depression. Sustainability (Switzerland). Retrieved from https://doi.org/10.3390/su10103633
