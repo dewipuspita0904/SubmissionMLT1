@@ -147,12 +147,16 @@ Ada pun proses penerapannya adalah berikut:
 
 ### 1. Random Forest Regressor
 
+Random Forest membangun banyak pohon keputusan (decision trees) secara acak dan menggabungkan hasil prediksi mereka untuk meningkatkan akurasi dan mengurangi overfitting.
+
+Random Forest bekerja dengan membangun sejumlah besar pohon keputusan independen pada subset acak data dan fitur. Setiap pohon memberikan prediksi sendiri, kemudian hasil akhir didapatkan dengan menggabungkan (rata-rata) prediksi dari seluruh pohon tersebut. Proses ini meningkatkan stabilitas dan akurasi model sekaligus mengurangi risiko overfitting yang umum terjadi pada pohon tunggal.
+
 Algoritma: `RandomForestRegressor`
 
 Parameter utama: 
-- `n_estimators=50` -> Jumlah pohon
+- `n_estimators=50` -> Jumlah pohon keputusan yang dibangun
 - `max_depth=16` -> kedalaman maksimum tiap pohon
-- `random_state=55` -> untuk reproduktibilitas hasil
+- `random_state=55` -> seed untuk reproduktibilitas hasil
 - `n-jobs=-1` -> untuk mempercepat pelatihan dengan menggunakan semua inti CPU
 
 Kelebihan:
@@ -164,13 +168,17 @@ Kekurangan:
 - Lebih bambah dibanding model sederhana
 - Lebih kompleks untuk ditafsirkan
   
-### 2. Adaptive Regressor
+### 2. Adaptive Boosting Regressor
+
+AdaBoost adalah algoritma boosting yang membangun model secara sekuensial, di mana setiap model baru lebih fokus pada kesalahan prediksi model sebelumnya dengan memberikan bobot lebih pada sampel yang sulit.
+
+AdaBoost membangun model secara bertahap. Pada iterasi pertama, model dilatih pada data asli. Di iterasi berikutnya, model baru difokuskan untuk memperbaiki kesalahan prediksi dari model sebelumnya dengan memberi bobot lebih pada data yang salah diprediksi. Dengan cara ini, setiap model tambahan bertujuan meningkatkan performa keseluruhan, menghasilkan prediksi yang semakin akurat.
 
 Algoritma: `AdaBoostRegressor`
 
 Parameter utama: 
-- `learning_rate=0.05` -> tingkat kontribusi setiap model lemah
-- `random_state=55`-> untuk konsistensi hasil
+- `learning_rate=0.05` -> kecepatan pembelajaran (learning rate) untuk mengontrol kontribusi setiap model.
+- `random_state=55`-> seed untuk konsistensi hasil
 
 Kelebihan:
 - Bagus untuk menangani data dengan noise rendah
